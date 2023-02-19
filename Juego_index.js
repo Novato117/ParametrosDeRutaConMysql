@@ -32,6 +32,21 @@ app.get('/api/:juego', (req, res) => {
         res.send(JSON.stringify(resultado));
     });
 })
+app.post('/', (req, res) => {
+    let juegoNuevo = req.body;
+    console.log(juegoNuevo);
+    connection.query("INSERT INTO todos_los_videojuegos SET?", juegoNuevo, (error, results) => {
+        if (error) throw error;
+        res.send(results)
+    })
+
+});
+app.delete('/:id', (req, res) => {
+    connection.query("DELETE FROM todos_los_videojuegos WHERE id=" + req.params.id, (err, results) => {
+        if (err) throw err;
+        res.send(results);
+    })
+})
 app.listen(3000, () => {
     console.log("escuchando el spuerto 3000");
 })
